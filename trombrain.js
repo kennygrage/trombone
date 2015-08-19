@@ -1,6 +1,6 @@
 $(document).ready(function(){
-	var maxX = 6;
-	var maxY = 6;
+	var maxX = 6; //number of rows
+	var maxY = 6; //number of columns
 	var tromArray = [];
 
 
@@ -10,10 +10,10 @@ $(document).ready(function(){
 			var xToString = x.toString();
 			//make sure each x has three digits (put 1 or 2 zeros in front of strings with numbers less than 100)
 			if (x < 10) {
-				xToString = "00" + xToString;
+				xToString = "900" + xToString;
 			}
 			else if (x < 100){
-				xToString = "0" + xToString;
+				xToString = "90" + xToString;
 			}
 
 			var yToString = y.toString();
@@ -29,7 +29,7 @@ $(document).ready(function(){
 			$("#tromarea").append('<div id="' + tromArray[x][y] + '"></div>');
 			$("#" + tromArray[x][y]).addClass("tromclass");
 			$("#" + tromArray[x][y]).append(xToString + yToString);
-			$("#" + tromArray[x][y]).css("background-color","#d3d3d3");
+			$("#" + tromArray[x][y]).css("background-color",uncolor);
 			if (x === 0) {
 				$("#" + tromArray[x][y]).css("clear", "both");
 			}
@@ -40,37 +40,41 @@ $(document).ready(function(){
 });
 
 
-function colorTheDivs(idNumsToChange) {
+function colorTheDivs() {
 	$(document).ready(function(){
-		for (var i = 0, len = idNumsToChange.length; i < len; i++) {
-			$("#" + idNumsToChange[i]).css("background-color","#03d3d3");
+		idNumsToChangeBack = []; //start off as empty array
+		// for (var i = 0, len = idNumsToChange.length; i < len; i++) {
+		// 	$("#" + idNumsToChange[i]).css("background-color", color);
+		// 	idNumsToChangeBack.push(idNumsToChange[i]);
+		// }
+		while (idNumsToChange.length > 0) {
+			$("#" + idNumsToChange[0]).css("background-color", color);
+			idNumsToChangeBack.push(idNumsToChange[0]);
+			idNumsToChange.shift();
 		}
 	});
 }
 
-function changeTheDivs(idNumsToChange) {
+function changeTheDivs() {
 	for (var i = 0, len = idNumsToChange.length; i < len; i++) {
 		idNumsToChange[i] = Number(idNumsToChange[i]);
 		idNumsToChange[i] -= 1000; //move to the left one space
 		idNumsToChange[i].toString();
-		var prefix = "00";
+		var prefix = "900";
 		idNumsToChange[i] = prefix.concat(idNumsToChange[i]);
 	}
 }
 
-function sleepFor( sleepDuration ){
-	var now = new Date().getTime();
-	while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
-}
 
 	var hFont = "0,0|0,0,0,0,0,0,0!0,0|0,0,0,0,0,0,0!0,0|1,1,1,1,1,1,0!0,0|0,0,0,1,0,0,0!0,0|0,0,0,1,0,0,0!0,0|1,1,1,0,0,0,0!0,0|0,0,0,0,0,0,0";
-
+	var color = "#03d3d3";
+	var uncolor = "#d3d3d3";
 	var messageArray = hFont.split("!");
 	var row_which_is_really_column_and_therefore_is_x=0;
 	var idNumsToChange = [];
+	var idNumsToChangeBack = [];
 
 	for (var colCharNum = 0; colCharNum < messageArray.length; colCharNum++) {
-	//document.write(row_which_is_really_column_and_therefore_is_x + "  -  ");
 		row_which_is_really_column_and_therefore_is_x++;
 		var rowArray = messageArray[colCharNum].split(",");
 		rowArray.shift();
@@ -103,8 +107,21 @@ function sleepFor( sleepDuration ){
 			// 1 is on, 0 is off, anything other than 0 and 1 is a hexadecimal number
 		}
 	}
-	colorTheDivs(idNumsToChange);
-	sleepFor(2000);
-	changeTheDivs(idNumsToChange);
-	colorTheDivs(idNumsToChange);
+
+	colorTheDivs();
+
+	document.write(idNumsToChangeBack.length + "<br>");
+	for (var i = 0, len = idNumsToChangeBack.length; i < len; i++) {
+		document.write(idNumsToChangeBack[i] + "<br>");
+	}
+
+	changeTheDivs();
+	//colorTheDivs();
+
+	document.write(idNumsToChangeBack.length + "<br>");
+	for (var i = 0, len = idNumsToChangeBack.length; i < len; i++) {
+		document.write(idNumsToChangeBack[i] + "<br>");
+	}
+
+
 	//Then set an interval and every interval redraw this message with a different starting point (col offset)
