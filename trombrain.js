@@ -42,6 +42,12 @@ $(document).ready(function(){
 	$(".tromclass").css("margin", "5px").css("padding", "5px").css("width", "30px").css("height", "30px").css("float", "left").css("font-size", "x-small");
 });
 
+function sleep(ms) {
+	var dt = new Date();
+	dt.setTime(dt.getTime() + ms);
+	while (new Date().getTime() < dt.getTime());
+}
+
 function initialColoring() {
 	for (var colCharNum = 0; colCharNum < messageArray.length; colCharNum++) {
 		row_which_is_really_column_and_therefore_is_x++;
@@ -104,16 +110,16 @@ function changeTheDivs() {
 
 	changeTheDivs();
 	colorTheDivs();
-//	changeTheDivs();
-	//colorTheDivs();
-	//colorTheDivs();
+
+	// sleep (1000);
+	//
+	// changeTheDivs();
+	// colorTheDivs();
 
 
+	//window.setTimeout(function(){ changeTheDivs(); colorTheDivs(); }, 1000);
 
-	document.write(idNumsToChangeBack.length + "<br>");
-	for (var i = 0, len = idNumsToChangeBack.length; i < len; i++) {
-		document.write(idNumsToChangeBack[i] + "<br>");
-	}
+
 
 
 	//Then set an interval and every interval redraw this message with a different starting point (col offset)
