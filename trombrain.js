@@ -42,11 +42,6 @@ $(document).ready(function(){
 
 function colorTheDivs() {
 	$(document).ready(function(){
-		idNumsToChangeBack = []; //start off as empty array
-		// for (var i = 0, len = idNumsToChange.length; i < len; i++) {
-		// 	$("#" + idNumsToChange[i]).css("background-color", color);
-		// 	idNumsToChangeBack.push(idNumsToChange[i]);
-		// }
 		while (idNumsToChange.length > 0) {
 			$("#" + idNumsToChange[0]).css("background-color", color);
 			idNumsToChangeBack.push(idNumsToChange[0]);
@@ -57,11 +52,11 @@ function colorTheDivs() {
 
 function changeTheDivs() {
 	for (var i = 0, len = idNumsToChange.length; i < len; i++) {
-		idNumsToChange[i] = Number(idNumsToChange[i]);
-		idNumsToChange[i] -= 1000; //move to the left one space
-		idNumsToChange[i].toString();
+		idNumsToChange[i] = Number(idNumsToChange[i]); document.write(idNumsToChange[i] + "<br>");
+		idNumsToChange[i] -= 1000; document.write(idNumsToChange[i] + "<br>"); //move to the left one space
+		idNumsToChange[i].toString();document.write(idNumsToChange[i] + "<br>");
 		var prefix = "900";
-		idNumsToChange[i] = prefix.concat(idNumsToChange[i]);
+		idNumsToChange[i] = prefix.concat(idNumsToChange[i]);document.write(idNumsToChange[i] + "<br>");
 	}
 }
 
@@ -96,27 +91,13 @@ function changeTheDivs() {
 				idNumsToChange.push( idNum );
 			}
 		}
-
-		for(rowCharNum = 0; rowCharNum < rowArray.length; rowCharNum++) {
-			//	for (rowCharNum = 0; rowCharNum < currentRow.length; rowCharNum++) {
-			//			var rowChar =
-			//		if (rowChar === "|")
-			//	}
-			// we now have a numerical row and col
-			// and rowArray holds the data for this row
-			// 1 is on, 0 is off, anything other than 0 and 1 is a hexadecimal number
-		}
 	}
 
 	colorTheDivs();
-
-	document.write(idNumsToChangeBack.length + "<br>");
-	for (var i = 0, len = idNumsToChangeBack.length; i < len; i++) {
-		document.write(idNumsToChangeBack[i] + "<br>");
-	}
-
 	changeTheDivs();
 	//colorTheDivs();
+
+
 
 	document.write(idNumsToChangeBack.length + "<br>");
 	for (var i = 0, len = idNumsToChangeBack.length; i < len; i++) {
