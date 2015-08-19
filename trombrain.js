@@ -7,6 +7,8 @@ $(document).ready(function(){
 	for (var y = maxY; y >= 0; y--) {
 		for (var x = 0; x <= maxX; x++) {
 			tromArray[x] = [];
+
+
 			var xToString = x.toString();
 			//make sure each x has three digits (put 1 or 2 zeros in front of strings with numbers less than 100)
 			if (x < 10) {
@@ -25,6 +27,7 @@ $(document).ready(function(){
 				yToString = "0" + yToString;
 			}
 
+
 			tromArray[x][y] = xToString + yToString;
 			$("#tromarea").append('<div id="' + tromArray[x][y] + '"></div>');
 			$("#" + tromArray[x][y]).addClass("tromclass");
@@ -39,36 +42,7 @@ $(document).ready(function(){
 	$(".tromclass").css("margin", "5px").css("padding", "5px").css("width", "30px").css("height", "30px").css("float", "left").css("font-size", "x-small");
 });
 
-
-function colorTheDivs() {
-	$(document).ready(function(){
-		while (idNumsToChange.length > 0) {
-			$("#" + idNumsToChange[0]).css("background-color", color);
-			idNumsToChangeBack.push(idNumsToChange[0]);
-			idNumsToChange.shift();
-		}
-	});
-}
-
-function changeTheDivs() {
-	for (var i = 0, len = idNumsToChange.length; i < len; i++) {
-		idNumsToChange[i] = Number(idNumsToChange[i]); document.write(idNumsToChange[i] + "<br>");
-		idNumsToChange[i] -= 1000; document.write(idNumsToChange[i] + "<br>"); //move to the left one space
-		idNumsToChange[i].toString();document.write(idNumsToChange[i] + "<br>");
-		var prefix = "900";
-		idNumsToChange[i] = prefix.concat(idNumsToChange[i]);document.write(idNumsToChange[i] + "<br>");
-	}
-}
-
-
-	var hFont = "0,0|0,0,0,0,0,0,0!0,0|0,0,0,0,0,0,0!0,0|1,1,1,1,1,1,0!0,0|0,0,0,1,0,0,0!0,0|0,0,0,1,0,0,0!0,0|1,1,1,0,0,0,0!0,0|0,0,0,0,0,0,0";
-	var color = "#03d3d3";
-	var uncolor = "#d3d3d3";
-	var messageArray = hFont.split("!");
-	var row_which_is_really_column_and_therefore_is_x=0;
-	var idNumsToChange = [];
-	var idNumsToChangeBack = [];
-
+function initialColoring() {
 	for (var colCharNum = 0; colCharNum < messageArray.length; colCharNum++) {
 		row_which_is_really_column_and_therefore_is_x++;
 		var rowArray = messageArray[colCharNum].split(",");
@@ -92,9 +66,46 @@ function changeTheDivs() {
 			}
 		}
 	}
+}
 
-	colorTheDivs();
+function colorTheDivs() {
+	$(document).ready(function(){
+		while (idNumsToChange.length > 0) {
+			var prefix = "900";
+			var divToColor = prefix.concat(idNumsToChange[0]);
+			$("#" + divToColor).css("background-color", color);
+			idNumsToChangeBack.push(idNumsToChange[0]);
+			idNumsToChange.shift();
+		}
+	});
+}
+
+function changeTheDivs() {
+	for (var i = 0, len = idNumsToChange.length; i < len; i++) {
+		idNumsToChange[i] = Number(idNumsToChange[i]);
+		idNumsToChange[i] -= 1000;  //move to the left one space
+		idNumsToChange[i].toString();
+
+	}
+}
+
+
+	var hFont = "0,0|0,0,0,0,0,0,0!0,0|0,0,0,0,0,0,0!0,0|1,1,1,1,1,1,0!0,0|0,0,0,1,0,0,0!0,0|0,0,0,1,0,0,0!0,0|1,1,1,0,0,0,0!0,0|0,0,0,0,0,0,0";
+	var color = "#03d3d3";
+	var uncolor = "#d3d3d3";
+	var messageArray = hFont.split("!");
+	var row_which_is_really_column_and_therefore_is_x=0;
+	var idNumsToChange = [];
+	var idNumsToChangeBack = [];
+
+	initialColoring();
+
+
+
 	changeTheDivs();
+	colorTheDivs();
+//	changeTheDivs();
+	//colorTheDivs();
 	//colorTheDivs();
 
 
